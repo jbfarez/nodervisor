@@ -24,14 +24,16 @@ exports.hosts = function(params) {
 						newHosts.push({
 							idHost: req.body.host.idHost[i],
 							Name: req.body.host.Name[i],
-							Url: req.body.host.Url[i]
+							Url: req.body.host.Url[i],
+							relatedLink: req.body.host.RelatedLink[i]
 						});
 					}
 				} else {
 					newHosts.push({
 						idHost: req.body.host.idHost,
 						Name: req.body.host.Name,
-						Url: req.body.host.Url
+						Url: req.body.host.Url,
+						relatedLink: req.body.host.RelatedLink
 					});
 				}
 			}

@@ -11,27 +11,27 @@ exports.login = function(params) {
 
 		if (req.body.submit !== undefined) {
 			var email = req.body.email;
-			params.db('users')
-				.where('Email', email)
-				.exec(function(err, user){
-					var error = 'Password failed';
-					if (user !== null) {
-						bcrypt = require('bcrypt');
-						req.session.loggedIn = bcrypt.compareSync(req.body.password, user[0].Password);
-					} else {
-						error = 'Email not found';
-					}
-					
-					if (!req.session.loggedIn) {
-						res.render('login', {
-							title: 'Nodervisor - Login',
-							error: error
-						});
-					} else {
-						req.session.user = user[0];
-						res.redirect('/');
-					}
-				});
+		    params.db('users')
+		    	.where('Email', email)
+		    	.exec(function(err, user){
+		    		var error = 'Email/Password failed';
+		    		if (user !== null) {
+		    			bcrypt = require('bcrypt');
+		    			req.session.loggedIn = bcrypt.compareSync(req.body.password, user[0].Password);
+		    		} else {
+		    			error = 'User does not exists';
+		    		}
+		    		
+		    		if (!req.session.loggedIn) {
+		    			res.render('login', {
+		    				title: 'Nodervisor - Login',
+		    				error: error
+		    			});
+		    		} else {
+		    			req.session.user = user[0];
+		    			res.redirect('/');
+		    		}
+		    	});
 		} else {
 			res.render('login', {
 				title: 'Nodervisor - Login',

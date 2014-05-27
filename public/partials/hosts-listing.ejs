@@ -20,11 +20,15 @@ for (state in hostSummary) {
         }
         break;
         case 'STOPPED': {
-            stateColor = 'warning';
+            stateColor = 'danger';
         }
         break;
         case 'FATAL': {
             stateColor = 'danger';
+        }
+        break;
+        case 'EXITED': {
+            stateColor = 'info';
         }
         break;
     }
@@ -60,11 +64,15 @@ for (state in hostSummary) {
                     }
                     break;
                     case 'STOPPED': {
-                        rowClass = 'warning';
+                        rowClass = 'danger';
                     }
                     break;
                     case 'FATAL': {
                         rowClass = 'danger';
+                    }
+                    break;
+                    case 'EXITED': {
+                        rowClass = 'info';
                     }
                     break;
                 }
@@ -105,6 +113,10 @@ for (state in hostSummary) {
                                 %>
                                     <button type="button" class="btn btn-labeled btn-success super-action" data-action="start" data-process="<%= processes[i].name %>" data-host="<%= host.idHost %>"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Start</button>
                                 <%
+                            } else if ((processes[i].statename == 'EXITED') || (processes[i].statename == 'STOPPED')) {
+                                %>
+                                    <button type="button" class="btn btn-labeled btn-success super-action" data-action="start" data-process="<%= processes[i].name %>" data-host="<%= host.idHost %>"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Start</button>
+                                <%
                             } else {
                                 %>
                                     <button type="button" class="btn btn-labeled btn-info"><span class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Updating</button>
@@ -112,7 +124,7 @@ for (state in hostSummary) {
                             }
                         }
                     %>
-                    <button type="button" class="btn btn-info process-info-btn"><i class="glyphicon glyphicon-info-sign"></i></button>
+                    <a href="<%= host.relatedLink %>" class="btn btn-info process-info-btn"><i class="glyphicon glyphicon-info-sign"></i></a>
                     <a href="/log/<%= host.idHost %>/<%= processes[i].name %>/out" class="btn btn-default"><i class="glyphicon glyphicon-tasks"></i></a>
                 </td>
             </tr>
