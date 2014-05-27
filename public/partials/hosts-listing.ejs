@@ -96,7 +96,7 @@ for (state in hostSummary) {
                 </td>
                 <td>
                     <%
-                        if (role == 'Admin') {
+                        if (role == 'Admin' || role == 'Operator') {
                             if (processes[i].statename == 'RUNNING') {
                                 %>
                                     <button type="button" class="btn btn-labeled btn-danger super-action" data-action="stop" data-process="<%= processes[i].name %>" data-host="<%= host.idHost %>"><span class="btn-label"><i class="glyphicon glyphicon-minus-sign"></i></span>Stop</button>

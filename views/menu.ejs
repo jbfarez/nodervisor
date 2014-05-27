@@ -4,7 +4,7 @@
         <% if (typeof notLoggedIn == 'undefined') { %>
 	        <nav>
 	            <ul>
-	                <li><a href="/">Home</a></li>
+	                <li><a href="/">Dashboard</a></li>
 	                <%
 	                	if (typeof session.user != 'undefined') {
 	                		if (session.user.Role == 'Admin') {

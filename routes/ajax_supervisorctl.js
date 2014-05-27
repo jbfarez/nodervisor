@@ -11,7 +11,7 @@ exports.ajax_supervisorctl = function(params) {
 		if (!req.session.loggedIn) {
 			res.send({error: 'Not logged in'});
 		} else {
-			if (req.session.user.Role != 'Admin') {
+			if (req.session.user.Role != 'Admin') || (req.session.user.Role != 'Operator') {
 				res.send({error: 'Incorrect Priviledges!'});
 				return false;
 			} else {
@@ -35,11 +35,16 @@ exports.ajax_supervisorctl = function(params) {
 						}
 						break;
 						case 'restartAll': {
-							supclient.stopAllProcesses(true, function(){
-								supclient.startAllProcesses(true, function(){
-									res.send({result: 'success'});
-								});
-							});
+                            if (req.session.user.Role != 'Admin' || req.session.user.Role != 'Operator') {
+                                res.send({error: 'Incorrect Priviledges!'});
+                                return false;
+                            } else {
+							    supclient.stopAllProcesses(true, function(){
+								    supclient.startAllProcesses(true, function(){
+									    res.send({result: 'success'});
+								    });
+							    });
+                            }
 						}
 						break;
 					}
