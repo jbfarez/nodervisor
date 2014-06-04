@@ -18,7 +18,7 @@ exports.log = function(params) {
 				data.error = "Host not found";
 			}
 			res.render('log', {
-				title: 'Nodervisor - Log',
+				title: 'Supervisord dashboard - Log',
 				session: req.session,
 				data: data,
 				host: req.params.host,

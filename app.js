@@ -35,6 +35,10 @@ config.readHosts(db);
  */
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(function(req, res, next){
+       res.logger = require('./lib/logging');
+       next();
+});
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
@@ -64,5 +68,5 @@ var routes = require('./routes')({
  * Start Express Server
  */
 app.listen(app.get('port'), function(){
-	console.log('Nodervisor launched on port ' + app.get('port'));
+	console.log('Supervisord dashboard launched on port ' + app.get('port'));
 });

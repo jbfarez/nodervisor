@@ -7,10 +7,17 @@ exports.hosts = function(params) {
 	var db = params.db;
 	return function(req, res) {
 
+        var infoLog = res.logger.logger.info;
+        var warnLog = res.logger.logger.warning;
+        var errLog = res.logger.logger.error;
+
 		if ((!req.session.loggedIn) || (req.session.user.Role != 'Admin')) {
+            errLog('User must be logged in and must be an admin to access to hosts management');
 			res.redirect('/login');
+            return false;
 		}
 
+        var email = req.session.user.Email;
 		var saved = false;
 		var hosts = params.config.hosts;
 		
@@ -24,14 +31,16 @@ exports.hosts = function(params) {
 						newHosts.push({
 							idHost: req.body.host.idHost[i],
 							Name: req.body.host.Name[i],
-							Url: req.body.host.Url[i]
+							Url: req.body.host.Url[i],
+							relatedLink: req.body.host.RelatedLink[i]
 						});
 					}
 				} else {
 					newHosts.push({
 						idHost: req.body.host.idHost,
 						Name: req.body.host.Name,
-						Url: req.body.host.Url
+						Url: req.body.host.Url,
+						relatedLink: req.body.host.RelatedLink
 					});
 				}
 			}
@@ -39,10 +48,11 @@ exports.hosts = function(params) {
 			// Save and render
 			params.config.writeHosts(db, newHosts, function(err){
 				if (!err){
+                    infoLog('New host created by ' + email);
 					saved = true;
 				}
 				res.render('hosts', {
-					title: 'Nodervisor - Hosts',
+					title: 'Supervisord dashboard - Hosts',
 					hosts: params.config.hosts,
 					saved: saved,
 					error: err,
@@ -51,7 +61,7 @@ exports.hosts = function(params) {
 			});
 		} else {
 			res.render('hosts', {
-				title: 'Nodervisor - Hosts',
+				title: 'Supervisord dashboard - Hosts',
 				hosts: hosts,
 				saved: saved,
 				error: null,

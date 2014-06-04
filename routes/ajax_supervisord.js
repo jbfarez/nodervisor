@@ -11,7 +11,6 @@ exports.ajax_supervisord = function(params) {
 		if (!req.session.loggedIn) {
 			res.send({error: 'Not logged in'});
 		} else {
-		
 			var supervisords = {};
 			var hosts = [];
 			for (var idHost in config.hosts) {

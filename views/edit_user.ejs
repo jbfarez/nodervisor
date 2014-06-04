@@ -28,6 +28,7 @@
                                 <select name="role" id="inputRole" class="form-control">
                                     <option <%= (user !== null) ? ((user.Role == 'User') ? 'selected' : '') : '' %> value="User">User</option>
                                     <option <%= (user !== null) ? ((user.Role == 'Admin') ? 'selected' : '') : '' %> value="Admin">Admin</option>
+                                    <option <%= (user !== null) ? ((user.Role == 'Operator') ? 'selected' : '') : '' %> value="Operator">Operator</option>
                                 </select>
                             </div>
                             <div class="form-group">

@@ -1,10 +1,10 @@
 <div class="header-container">
     <header class="header-wrapper clearfix">
-        <h1 class="title">Nodervisor</h1>
+        <h1 class="title">Viadeo Supervisord Dashboard</h1>
         <% if (typeof notLoggedIn == 'undefined') { %>
 	        <nav>
 	            <ul>
-	                <li><a href="/">Home</a></li>
+	                <li><a href="/">Dashboard</a></li>
 	                <%
 	                	if (typeof session.user != 'undefined') {
 	                		if (session.user.Role == 'Admin') {
